@@ -1,0 +1,13 @@
+{
+  "name": "SassyBot",
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "discord.js-commando": "^0.9.0",
+    "hash_file": "^0.1.1"
+  },
+  "version": "0.0.1",
+  "description": "A bot with sass",
+  "main": "index.js",
+  "author": "Duane Miles",
+  "license": "ISC"
+}
