@@ -2,7 +2,7 @@ const commando = require("discord.js-commando");
 
 class DiceRollCommand extends commando.Command {
     constructor (client) {
-        super(client, {
+        super (client, {
             name : "diceroll",
             group : "random",
             memberName : "diceroll",

@@ -7,7 +7,7 @@ class PokemonVS extends commando.Command {
             memberName:"vs",
             group:"random",
             description:"Check the attack multiplier of an attack against specific types.",
-            example:["!vs fire rock steel"],
+            examples:["£vs fire rock steel", "£vs ice fire"],
             args:[
                 {
                     key:"attackE",
@@ -32,9 +32,10 @@ class PokemonVS extends commando.Command {
         var atkE = args["attackE"];
         var def1 = args["defendE1"];
         var def2 = args["defendE2"];
-        message.channel.send("Attacking element: " + atkE);
-        message.channel.send("Primary defending element: " + def1);
-        message.channel.send("Secondary defending element: " + def2);
+
+        var supEff = "https://raw.githubusercontent.com/TheDeadlyPianist/codeImages/master/images/superEffective.PNG";
+        var inEff = "https://raw.githubusercontent.com/TheDeadlyPianist/codeImages/master/images/ineffective.PNG";
+        var noEff = "https://raw.githubusercontent.com/TheDeadlyPianist/codeImages/master/images/noeffect.PNG";
 
         var normal = [1, 1, 1, 1, 1, 1, 0.5, 1, 0, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1];
         var fight = [1, 2, 1, 0.5, 0.5, 1, 2, 0.5, 0, 2, 1, 1, 1, 1, 0.5, 2, 1, 2, 0.5];
@@ -174,8 +175,23 @@ class PokemonVS extends commando.Command {
         var firstIndex = indexFind[def1]();
         var secondIndex = indexFind[def2]();
         var finalMultiplier = usedArray[firstIndex]*usedArray[secondIndex];
+        var filesend = "";
+        if(finalMultiplier > 1) {
+            filesend = supEff;
+        } else if(finalMultiplier == 0.5) {
+            filesend = inEff;
+        } else if(finalMultiplier == 0) {
+            filesend = noEff;
+        }
+        
+        console.log("Image return: " + filesend);
+        message.reply("Attacking element: " + atkE + "\nPrimary defending element: " + def1 + "\nSecondary defending element: " + def2 + "\nThe final multiplier is: " + finalMultiplier, {
+            files : [
+                filesend
+            ]
+        });
 
-        message.channel.send("The final multiplier is: " + finalMultiplier);
+        
         //===============================================================================================================================
     }
 }
