@@ -3,6 +3,7 @@ const sassyBot = new commando.Client();
 sassyBot.registry.registerGroup("random", "Random");
 sassyBot.registry.registerGroup("apis", "APIs");
 sassyBot.registry.registerGroup("emotes", "Twitch Emotes");
+sassyBot.registry.registerGroup("jackroast", "Jack Roast");
 sassyBot.registry.registerDefaults();
 sassyBot.registry.registerCommandsIn(__dirname + "/commands");
 

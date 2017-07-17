@@ -83,12 +83,14 @@ class PokemonFight extends commando.Command {
             var dragon = [1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 1, 1, 1, 2, 1, 0];
             var dark = [1, 1, 0.5, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 0.5, 0.5];
             var fairy = [1, 1, 2, 1, 0.5, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 1, 2, 2, 1];
+            var strongO = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
+            var weakO = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
             var elementsLookUp = {
                 "normal":function() {
                     return normal;
                 },
-                "fight":function() {
+                "fighting":function() {
                     return fight;
                 },
                 "flying":function() {
@@ -139,6 +141,12 @@ class PokemonFight extends commando.Command {
                 "fairy":function() {
                     return fairy;
                 },
+                "vsalex":function() {
+                    return strongO;
+                },
+                "alexvs":() => {
+                    return weakO;
+                }
             }
             var indexFind = {
                 "none":function() {
@@ -147,7 +155,7 @@ class PokemonFight extends commando.Command {
                 "normal":function() {
                     return 1;
                 },
-                "fight":function() {
+                "fighting":function() {
                     return 2;
                 },
                 "flying":function() {
@@ -226,12 +234,16 @@ class PokemonFight extends commando.Command {
         }
 
         function setInfo (input, check) {
+            input = input.toLowerCase();
+            if(input=="alex"){input="grimer";if(check==2){pok1E1 = "vsalex"}else if(check==1){pok1E1 = "alexvs"}}
+            if(input=="jack"){input="machamp";if(check==1){pok1E1 = "vsalex"}}
             message.channel.send("Starting search for input: " + input)
             let getURL = "http://pokeapi.co/api/v2/pokemon/" + input;
 
             req(getURL, function(error, response, body) {
                 if(response.statusCode == 404) {
-                    message.reply(input + " is not a correct spelling.");
+                    message.reply(input + " is not a correct spelling.\nPlease try again.");
+                    return;
                 } else {
                     body = JSON.parse(body);
                     let pName = body["name"].replace(body["name"].slice(0, 1), body["name"].slice(0, 1).toUpperCase());
@@ -243,7 +255,7 @@ class PokemonFight extends commando.Command {
                     }
                     if(check == 1) {
                         pok1N = pName;
-                        pok1E1 = mainE;
+                        if(pok1E1==""){pok1E1 = mainE};
                         pok1E2 = secondaryE;
                         pok1I = body["sprites"]["back_default"];
                         pok1C = true;

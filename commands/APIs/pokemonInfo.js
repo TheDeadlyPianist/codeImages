@@ -20,6 +20,7 @@ class pokemonInfo extends commando.Command {
     }
     async run (message, args) {
         let pokGet = args["pokemonGet"];
+        pokGet = pokGet.toLowerCase;
         let url = "http://pokeapi.co/api/v2/pokemon/" + pokGet;
         
         message.reply("be patient. This can take some time.\nThe database is huge.");
